@@ -1,0 +1,29 @@
+<% if @message %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h4><%= @message.user.first_name %> wrote: <%= @message.content %> about <%= @message.book.title %></h4>
+      <% @message.posts.each do |post| %>
+        <ul>
+          <%= post.user.first_name %>: <%= post.content %>
+        </ul>
+      <% end %>
+      <form action="/posts" method="post" class="form-horizontal">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="post[message_id]" value="<%= @message.id %>">
+        <div class="form-group">
+          <label for="inputContent" class="col-md-3 control-label">Add a comment:</label>
+          <div class="col-md-9">
+            <textarea name="post[content]" id="inputContent" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-offset-3">
+            <button type="submit" class="btn-primary btn-xs">Add post</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<% end %>
+
+

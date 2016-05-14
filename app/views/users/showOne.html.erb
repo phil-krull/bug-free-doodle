@@ -1,0 +1,8 @@
+<div>
+  <h2><%= @user.first_name %> <%= @user.last_name %>'s Book Shelf:</h2>
+  <% if @bookshelf %>
+    <% @bookshelf.each do |bookshelf| %>
+      <img src="<%= bookshelf.book.image %>">
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,38 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-1">
+      <% if @friend %>
+        <h2><%= @friend.first_name %> <%= @friend.last_name %>'s Book Shelf</h2>
+      <% end %>
+    </div>
+  </div>
+  <div id="blogs">
+    <h4>Start Blog about a book:</h4>
+    <% if @friendbooks %>
+      <% @friendbooks.each do |book| %>
+          <div class="row">
+            <button id="add_blog" type="submit" class="btn btn-primary btn-sm">Blog</button>
+            <%= book.title %>
+            <div class="show_form">
+              <form action="/messages" method="post" class="form-horizontal">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="hidden" name="message[book_id]" value="<%= book.id %>">
+                <div class="form-group">
+                <label for="inputContent" class="col-sm-1 control-label">Topic</label>
+                  <div class="col-sm-7">
+                    <textarea class="form-control" id="inputContent" name="message[content]"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-1 col-sm-4">
+                    <button type="submit" class="btn btn-primary btn-sm">Add Topic</button> 
+                  </div>
+                </div>
+              </form>
+            </div>
+         </div> 
+      <% end %>
+    <% end %>
+  </div>
+</div>

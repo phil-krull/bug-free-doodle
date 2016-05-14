@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <h3>All users:</h3>
+          </div>
+          <div>
+            <% if @not_friends %>
+              <% @not_friends.each do |user| %>
+                <div class="row">
+                  <div class="col-md-4">
+                    <form action="/friendships" method="post">
+                      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                      <input type="hidden" name="friend_id" value="<%= user.id %>">
+                      <button type="sumbit" class="btn-primary btn-xs">Add Friend</button>
+                    </form>
+                  </div>
+                  <div class="col-md-8">
+                    <a href="/users/<%= user.id %>"><%= user.first_name %> <%= user.last_name %></a>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <h3>Your friends:</h3>
+          </div>
+          <div>
+            <% if @friends %>
+              <% @friends.each do |friend| %>
+                <div class="row">
+                  <div class="col-md-4">
+                    <form action="/friendships/<%= friend.id %>" method="post">
+                      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                      <input type="hidden" name="_method" value="delete">
+                      <button type="sumbit" class="btn-primary btn-xs">Remove</button>
+                    </form>
+                  </div>
+                  <div class="col-md-8">
+                    <a href="/friendships/<%= friend.user_friend.id %>"><%= friend.user_friend.first_name %> <%= friend.user_friend.last_name %></a>
+                  </div>
+                  <!-- add display of book titles through ajax call on click -->
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="divDescription"></div>
+    <div class="col-md-8">
+      <% if @messages %>
+        <% @messages.each do |message| %>
+        <ul>
+          <a href="/books/<%= message.book.id %>"><%= message.book.title %>:</a> <a href="/posts/<%= message.id %>"><%= message.content %></a>
+        </ul>
+        <% end %>
+      <% end %>
+      <h3>Your Book Shelf:</h3>
+      <% if @bookshelf %>
+        <% @bookshelf.each do |bookshelf| %>
+          <a href="/books/<%= bookshelf.book.id %>"><img src="<%= bookshelf.book.image %>"></a>
+          <!-- <a id="book_thumb"><img src="<%= bookshelf.book.image %>" alt=<%= bookshelf.book.isbn %>></a> -->
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

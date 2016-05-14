@@ -1,0 +1,22 @@
+  <div class="form-group">
+    <p>
+        <label for="txtBookSearch" class="control-label">Search for a book:</label>
+        <div class="input-group">
+          <input class="form-control ui-autocomplete-input" id="txtBookSearch" type="text" autocomplete="off">
+          <span class="input-group-btn"></span>
+        </div>
+    </p>
+  </div>
+
+<h4>Book details:</h4>
+  <form id = 'book_info' action="/bookshelfs" method="post">
+    <div id="divDescription">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input id="book_title" type="hidden" name="book[title]">
+      <input id="book_author" type="hidden" name="book[author]">
+      <input id="book_year" type="hidden" name="book[year]">
+      <input id="book_image" type="hidden" name="book[image]">
+      <input id="book_isbn" type="hidden" name="book[isbn]">
+      <input id="book_description" type="hidden" name="book[description]">
+    </div>
+  </form>

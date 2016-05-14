@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Book Shelf</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js" %>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script src="https://www.googleapis.com/auth/books/key=AIzaSyD7eTMOPEaffOPIIxBH8seD6xOS6Q6_oE0"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<!--   <meta name="description" content="auto-complete API tutorial">
+  <meta name="author" content="libraries hacked"> -->
+</head>
+<body>
+
+  <% if session[:user_id] %>
+    <h4>Welcome <%= session[:user_name] %></h4>
+      <ul>
+        <a href="/bookshelfs">Add a book to your Book Shelf</a>
+      </ul>
+      <ul>
+        <a href="/user/<%= session[:user_id] %>">Go back to dashboard</a>
+      </ul>
+  <% end %>
+
+  <% if session[:user_id] %>
+    <form action = '/sessions' method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <button type="sumbit" class="btn-primary btn-xs">Logout</button>
+    </form>
+  <% end %>
+
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <span class="errors"><li><%= error %></li></span>
+    <% end %>
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>
